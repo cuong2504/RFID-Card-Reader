@@ -9,7 +9,7 @@ RFID CARD READER REQUIREMENTS:
 	+ Complies with ISO standards (ISO 14443, ISO 15693) for NFC and RFID cards
 
 - Offers multiple communication interfaces for integration
-	+ USB, RS232, RS485, and Wiegand support
+	+ USB, RS232, RS485,RC522 and Wiegand support
 	+ TCP/IP or HTTP communication protocols for IoT systems
 
 - Security and data protection
