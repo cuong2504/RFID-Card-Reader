@@ -22,12 +22,12 @@ Update: March 19th, 2025: You are invited to reference - test on the main branch
 ## 4. Sample of Design
 ### 4.1. General flowchart of system operation
 ![alt text](<rfid_project-General flow.drawio.png>)
-March 22nd, 2025 - Note: This is just a referencing version for system operation (not verified) -> if there is any errors, contact me.
+- March 22nd, 2025 - Note: This is just a referencing version for system operation (not verified) -> if there is any errors, please don't hesitate to contact us (Contributor).
 
 ### 4.2. PCB Design of system
 ![alt text](rfid_project-pcb-1.png)
-March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
+- March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.3. Schematic Design of system
 [text](RFID_Schematic.pdf)
-March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
+- March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
