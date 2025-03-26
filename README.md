@@ -29,7 +29,7 @@ Update: March 19th, 2025: You are invited to reference - test on the main branch
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.3. PCB Layout (Figure/Group12_PCB_Layout)
-![Alt text](PCB-layout.png)
+![alt text](PCB-layout.png)
 - March 26th, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.4. Schematic Design of system
