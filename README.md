@@ -28,6 +28,10 @@ Update: March 19th, 2025: You are invited to reference - test on the main branch
 ![alt text](rfid_project-pcb-1.png)
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
-### 4.3. Schematic Design of system
+### 4.3. PCB Layout (Figure/Group12_PCB_Layout)
+- March 26th, 2025 - Note: This is the first version of board development without testing -> refer only.
+
+### 4.4. Schematic Design of system
 [text](RFID_Schematic.pdf)
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
+
