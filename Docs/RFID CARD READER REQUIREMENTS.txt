@@ -1,0 +1,45 @@
+RFID CARD READER REQUIREMENTS:
+
+- The reader must accurately detect RFID cards within the defined range
+	+ Supports a stable and reliable read range of 5-10 cm
+	+ Provides fast detection and data transfer within 100 milliseconds
+
+- Compatible with multiple RFID standards and frequencies
+	+ Supports LF (125 kHz), HF (13.56 MHz), and UHF (860-960 MHz)
+	+ Complies with ISO standards (ISO 14443, ISO 15693) for NFC and RFID cards
+
+- Offers multiple communication interfaces for integration
+	+ USB, RS232, RS485,RC522 and Wiegand support
+	+ TCP/IP or HTTP communication protocols for IoT systems
+
+- Security and data protection
+	+ Provides encrypted communication (AES, DES) for secure data transfer
+	+ Supports mutual authentication for card and reader validation
+
+- Power Supply
+	+ Low power consumption for continuous operation
+	+ Can be powered through USB type C or external 12V DC adapter
+	+ Ensures stable power delivery for uninterrupted functionality
+
+- Physical and environmental durability
+	+ Compact and durable design for indoor and outdoor use
+	+ IP65-rated for dust and water resistance
+	+ Operating temperature range: -20°C to 60°C
+
+- User feedback and interface
+	+ LED and buzzer indicators for successful and unsuccessful reads
+	+ Option to enable or disable audible feedback
+
+- Cost and commercial availability
+	+ Low-cost solution under $100
+	+ Widely available for commercial and industrial applications
+
+- Display and diagnostics
+	+ Optional LCD display for configuration and read status
+	+ Provides visual feedback of reader mode, connection status, and errors
+
+- Connectivity
+	+ Supports firmware updates over USB or OTA
+	+ Compatible with mobile apps for configuration and monitoring
+
+
