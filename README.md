@@ -29,10 +29,10 @@ Update: March 19th, 2025: You are invited to reference - test on the main branch
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.3. PCB Layout (Figure/Group12_PCB_Layout)
-![alt text](Figure/Group12_PCB_Layout.pdf)
+![alt text](<PCB-layout.png.png>)
 - March 26th, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.4. Schematic Design of system
-![alt text](RFID_Schematic.pdf)
+![alt text](<RFID_Schematic.pdf>)
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
