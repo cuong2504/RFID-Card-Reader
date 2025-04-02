@@ -14,7 +14,7 @@ Update: March 19th, 2025: You are invited to reference - test on the main branch
 
 ### 2.1. MicrochipStudio (Version ???)
 
-### 2.2. EasyEDA Pro (Version V2.2.37)
+### 2.2. Altium
 
 ## 3. Design and Architecture
 
