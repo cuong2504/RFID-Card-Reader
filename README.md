@@ -4,7 +4,7 @@
 |       Name          |              Contact          |
 |---------------------|-------------------------------|
 | Vo Viet Hung        | https://github.com/hungpio89  |
-| Nguyen Van Cuong    |https://github.com/cuong2504                          |
+| Nguyen Van Cuong    |https://github.com/cuong2504                        |
 | Nguyen Dang Quang   | https://github.com/ngdangquang|
 
 ## 1. Introduction: 
