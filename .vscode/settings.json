@@ -1,6 +1,0 @@
-{
-    "AVR.reporter.arguments": [
-        "-A"
-    ],
-    "AVR.source.compiler": "c:\\RFID-Card-Reader\\Src\\rfid.c"
-}
