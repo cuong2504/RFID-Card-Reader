@@ -33,6 +33,6 @@ Update: March 19th, 2025: You are invited to a reference-test on the main branch
 - March 26th, 2025 - Note: This is the first version of board development without testing -> refer only.
 
 ### 4.4. Schematic Design of the System
-![alt text](<RFID_Schematic.pdf>)
+![alt text](<Docs/RFID_Schematic.png>)
 - March 22nd, 2025 - Note: This is the first version of board development without testing -> refer only.
 
