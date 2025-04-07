@@ -8,11 +8,11 @@
 | Nguyen Dang Quang   | https://github.com/ngdangquang|
 
 ## 1. Introduction: 
-Update: March 19th, 2025: You are invited to a reference-test on the main branch, which is the result of the Group Project about the RFID mini-project for housing - office. We haven't completed testing this feature yet, but we expect it would work. If you do test it, please let me know, and I'll adjust and merge it tothe  master.
+Update: March 19th, 2025: You are invited to a reference test on the main branch, which is the result of the Group Project about the RFID mini-project for housing - office. We haven't completed testing this feature yet, but we expect it would work. If you do test it, please let me know, and I'll adjust and merge it to the  master.
 
 ## 2. Tool used
 
-### 2.1. MicrochipStudio (Version ???)
+### 2.1. Microchip Studio
 
 ### 2.2. Altium
 
