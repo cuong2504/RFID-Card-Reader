@@ -1,0 +1,9 @@
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:5:6:GPIO_Reset	3
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:44:6:GPIO_Input_Init	3
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:102:6:GPIO_Input_Init_Reg	3
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:160:6:GPIO_Output_Init	2
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:207:6:GPIO_Output_Write	2
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:245:6:GPIO_Output_Clear_Reg	1
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:251:6:GPIO_Output_Reg_Write	1
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:257:6:GPIO_Input_Read	2
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/gpio.c:287:6:GPIO_Output_Read	2

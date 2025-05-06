@@ -1,0 +1,86 @@
+02:42:54 **** Incremental Build of configuration Debug for project Smart_RFID ****
+make -j16 all 
+arm-none-eabi-gcc "C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"comm/keypad.d" -MT"comm/keypad.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "comm/keypad.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c: In function 'activateColumn':
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:39:47: warning: left shift count >= width of type [-Wshift-count-overflow]
+   39 |                 GPIO_Output_Clear_Reg(GPIOA, 1<<GPIO_PIN_7);
+      |                                               ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:45:67: warning: left shift count >= width of type [-Wshift-count-overflow]
+   45 |                 GPIO_Output_Reg_Write(GPIOB, ((1<<GPIO_PIN_1) | (1<<GPIO_PIN_10)));
+      |                                                                   ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:46:48: warning: left shift count >= width of type [-Wshift-count-overflow]
+   46 |                 GPIO_Output_Reg_Write(GPIOA, (1<<GPIO_PIN_7));
+      |                                                ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:51:67: warning: left shift count >= width of type [-Wshift-count-overflow]
+   51 |                 GPIO_Output_Reg_Write(GPIOB, ((1<<GPIO_PIN_0) | (1<<GPIO_PIN_10)));
+      |                                                                   ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:52:48: warning: left shift count >= width of type [-Wshift-count-overflow]
+   52 |                 GPIO_Output_Reg_Write(GPIOA, (1<<GPIO_PIN_7));
+      |                                                ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:56:47: warning: left shift count >= width of type [-Wshift-count-overflow]
+   56 |                 GPIO_Output_Clear_Reg(GPIOB, 1<<GPIO_PIN_10);
+      |                                               ^~
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/keypad.c:58:48: warning: left shift count >= width of type [-Wshift-count-overflow]
+   58 |                 GPIO_Output_Reg_Write(GPIOA, (1<<GPIO_PIN_7));
+      |                                                ^~
+../Core/Src/main.c: In function 'send_uart':
+../Core/Src/main.c:77:48: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   77 |     HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                ^~~~~~
+../Core/Src/main.c:28:1: note: include '<string.h>' or provide a declaration of 'strlen'
+   27 | #include "rtc.h"
+  +++ |+#include <string.h>
+   28 | /* USER CODE END Includes */
+../Core/Src/main.c:77:48: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   77 |     HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                ^~~~~~
+../Core/Src/main.c:77:48: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:212:31: warning: implicit declaration of function 'get_keyPadChar' [-Wimplicit-function-declaration]
+  212 |                 keyPad_char = get_keyPadChar();
+      |                               ^~~~~~~~~~~~~~
+../Core/Src/main.c:217:25: warning: implicit declaration of function 'registerKeyPress' [-Wimplicit-function-declaration]
+  217 |                         registerKeyPress(keyPad_char, data, 2);
+      |                         ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:205:27: warning: unused variable 'zone_min' [-Wunused-variable]
+  205 |                   uint8_t zone_min = DS1307_GetTimeZoneMin();
+      |                           ^~~~~~~~
+../Core/Src/main.c:204:26: warning: unused variable 'zone_hr' [-Wunused-variable]
+  204 |                   int8_t zone_hr = DS1307_GetTimeZoneHour();
+      |                          ^~~~~~~
+../Core/Src/main.c:195:26: warning: unused variable 'serNum' [-Wunused-variable]
+  195 |                   u_char serNum[5];  // 4 bytes UID + checksum
+      |                          ^~~~~~
+../Core/Src/main.c:194:18: warning: unused variable 'TagType' [-Wunused-variable]
+  194 |           u_char TagType[2];
+      |                  ^~~~~~~
+../Core/Src/main.c:116:13: warning: unused variable 'comm_error_count' [-Wunused-variable]
+  116 |         int comm_error_count = 0;
+      |             ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:206:48: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  206 |                   sprintf(str1, "Time: %u:%u:%u",hour, minute, second);
+      |                                                ^
+../Core/Src/main.c:206:19: note: 'sprintf' output between 12 and 18 bytes into a destination of size 17
+  206 |                   sprintf(str1, "Time: %u:%u:%u",hour, minute, second);
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Smart_RFID.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Admin\Desktop\HK242\Embedded\RFID-Card-Reader\Firmware\Smart_RFID\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Smart_RFID.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Smart_RFID.elf
+ 
+arm-none-eabi-size  Smart_RFID.elf 
+arm-none-eabi-objdump -h -S Smart_RFID.elf  > "Smart_RFID.list"
+arm-none-eabi-objcopy  -O ihex Smart_RFID.elf  "Smart_RFID.hex"
+   text	   data	    bss	    dec	    hex	filename
+  19088	    116	   2196	  21400	   5398	Smart_RFID.elf
+arm-none-eabi-objcopy  -O binary Smart_RFID.elf  "Smart_RFID.bin"
+Finished building: default.size.stdout
+ 
+Finished building: Smart_RFID.hex
+Finished building: Smart_RFID.list
+Finished building: Smart_RFID.bin
+ 
+ 
+ 
+
+02:42:55 Build Finished. 0 errors, 17 warnings. (took 894ms)
+

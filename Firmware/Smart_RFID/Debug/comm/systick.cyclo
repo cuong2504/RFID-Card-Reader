@@ -1,0 +1,4 @@
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/systick.c:8:6:SysTick_Init	1
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/systick.c:28:10:SysTick_GetTick	1
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/systick.c:46:6:SysTick_DelayMs	2
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/systick.c:66:6:SysTick_Timer_Done_Counting	2

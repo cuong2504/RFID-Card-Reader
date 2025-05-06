@@ -1,0 +1,7 @@
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:23:6:lcd_send_cmd	32	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:36:6:lcd_send_data	32	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:49:6:lcd_clear	16	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:58:6:lcd_init	8	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:83:6:lcd_send_string	24	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:128:6:lcd_write	16	static
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.c:135:6:lcd_clear_line	24	static
