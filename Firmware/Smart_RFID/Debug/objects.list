@@ -20,5 +20,8 @@
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o"
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o"
 "./comm/MFRC522.o"
+"./comm/gpio.o"
 "./comm/i2clcd.o"
+"./comm/keypad.o"
 "./comm/rtc.o"
+"./comm/systick.o"

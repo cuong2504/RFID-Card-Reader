@@ -68,7 +68,41 @@ static void MX_SPI2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t keyPad_char;
+char data[3] = "00";
+char uart_rx_buffer[10];
+char uart_tx_buffer[64];
+uint8_t hour, min, sec;
+void send_uart(const char *msg) {
+    HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+}
 
+void get_time_from_user() {
+    send_uart("Enter time in HHMMSS format (e.g., 145959):\r\n");
+    HAL_UART_Receive(&huart1, (uint8_t *)uart_rx_buffer, 6, HAL_MAX_DELAY);
+
+    hour = (uart_rx_buffer[0] - '0') * 10 + (uart_rx_buffer[1] - '0');
+    min  = (uart_rx_buffer[2] - '0') * 10 + (uart_rx_buffer[3] - '0');
+    sec  = (uart_rx_buffer[4] - '0') * 10 + (uart_rx_buffer[5] - '0');
+
+    DS1307_SetHour(hour);
+    DS1307_SetMinute(min);
+    DS1307_SetSecond(sec);
+    send_uart("Time set!\r\n");
+}
+
+void display_time_loop() {
+    while (1) {
+        hour = DS1307_GetHour();
+        min = DS1307_GetMinute();
+        sec = DS1307_GetSecond();
+
+        snprintf(uart_tx_buffer, sizeof(uart_tx_buffer), "Time: %02d:%02d:%02d\r\n", hour, min, sec);
+        send_uart(uart_tx_buffer);
+
+        HAL_Delay(1000);
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -157,81 +191,88 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
 	  u_char TagType[2];
-	  u_char serNum[5];  // 4 bytes UID + checksum
+	  	  u_char serNum[5];  // 4 bytes UID + checksum
 
-	  uint8_t date = DS1307_GetDate();
-	  uint8_t month = DS1307_GetMonth();
-	  uint16_t year = DS1307_GetYear();
-	  uint8_t dow = DS1307_GetDayOfWeek();
-	  uint8_t hour = DS1307_GetHour();
-	  uint8_t minute = DS1307_GetMinute();
-	  uint8_t second = DS1307_GetSecond();
-	  int8_t zone_hr = DS1307_GetTimeZoneHour();
-	  uint8_t zone_min = DS1307_GetTimeZoneMin();
-	  sprintf(str1, "Time: %u:%u:%u",hour, minute, second);
-	  sprintf(str2, "%s, %u/%u/%u", DAYS_OF_WEEK[dow], date, month, year);
-	  /* May show warning below. Ignore and proceed. */
-	  lcd_write(str1, 0, 0);
-	  lcd_write(str2, 1, 0);
-//	  HAL_Delay(250);
+	  	  uint8_t date = DS1307_GetDate();
+	  	  uint8_t month = DS1307_GetMonth();
+	  	  uint16_t year = DS1307_GetYear();
+	  	  uint8_t dow = DS1307_GetDayOfWeek();
+	  	  uint8_t hour = DS1307_GetHour();
+	  	  uint8_t minute = DS1307_GetMinute();
+	  	  uint8_t second = DS1307_GetSecond();
+	  	  int8_t zone_hr = DS1307_GetTimeZoneHour();
+	  	  uint8_t zone_min = DS1307_GetTimeZoneMin();
+	  	  sprintf(str1, "Time: %u:%u:%u",hour, minute, second);
+	  	  sprintf(str2, "%s, %u/%u/%u", DAYS_OF_WEEK[dow], date, month, year);
+	  	  /* May show warning below. Ignore and proceed. */
+	  	  lcd_write(str1, 0, 0);
+	  	  lcd_write(str2, 1, 0);
+	  //	  HAL_Delay(250);
+	  	keyPad_char = get_keyPadChar();
+	  	sprintf(str1, "keyPad_char: %u",keyPad_char);
+	  	if(keyPad_char != '\0')
+	  	{
+	  		lcd_write(str1, 0, 10);
+	  		registerKeyPress(keyPad_char, data, 2);
 
-//	  u_char status;
-//	  uint8_t ver = Read_MFRC522(VersionReg);
-//
-//	 	  // Tạo chuỗi chứa dòng thông báo
-//	 	  char buffer[17];  // LCD 16 ký tự + null
-//	 	  sprintf(buffer, "Ver: 0x%02X", ver); // VD: "Ver: 0x91"
-//
-//	 	  lcd_write(buffer, 0, 0);
-//	 	  if (ver == 0x92 && comm_error_count < 20) {
-//
-//	   		  comm_error_count++;
-//	 		  status = MFRC522_Request(PICC_REQALL, TagType);
-//	 		  	  sprintf(str2,"Ver:%x", status);
-//	 		  	  lcd_write(str2, 0, 10);
-//	 		  	  HAL_Delay(1000);
-//	 		  	  if (status == 1) {
-//	 		  	      lcd_write("No card", 1, 0);
-//	 		  	  }
-//	 		  	  else if (status == 2) {
-//	 		  		  lcd_write("Comm error", 1, 0);
-//	 		  	  }
-//	 		  	  else if (status == MI_OK)
-//	 		  	  {
-//	 		  		  status = MFRC522_Anticoll(serNum);
-//	 		  		  if (status == MI_OK)
-//	 		  		  {
-//	 		  			  // Format UID
-//	 		  			  char uidStr[20];
-//	 		  			  snprintf(uidStr, sizeof(uidStr), "%02X%02X%02X%02X",
-//	 		  					   serNum[0], serNum[1], serNum[2], serNum[3]);
-//
-//	 		  			  // Display on LCD
-//	 		  			  lcd_clear();
-//	 		  			  lcd_write("Card UID:", 0, 0);
-//	 		  			  lcd_write(uidStr, 1, 0);
-//
-//	 		  			  HAL_Delay(2000); // Wait a bit before next read
-//	 		  			  lcd_clear();
-//	 		  			  lcd_write("Scan again...", 0, 0);
-//	 		  		  }
-//	 		  	  }
-//	 	  }
-//	 	  else if (ver != 0x92 && comm_error_count < 20) {
-//
-//	 	  }
-//	 	  else  if (comm_error_count >= 20){
-//	 		  lcd_clear();
-//	 		  lcd_write("Too many errors", 0, 0);
-//	 		  lcd_write("System reset...", 1, 0);
-//	 		  HAL_Delay(2000);
-//	 		  NVIC_SystemReset();  // Reset MCU
-//	 	  }
-//
-//	 	  HAL_Delay(1000);
-//	 	  lcd_clear();
+	  	}
+
+	  //	  u_char status;
+	  //	  uint8_t ver = Read_MFRC522(VersionReg);
+	  //
+	  //	 	  // Tạo chuỗi chứa dòng thông báo
+	  //	 	  char buffer[17];  // LCD 16 ký tự + null
+	  //	 	  sprintf(buffer, "Ver: 0x%02X", ver); // VD: "Ver: 0x91"
+	  //
+	  //	 	  lcd_write(buffer, 0, 0);
+	  //	 	  if (ver == 0x92 && comm_error_count < 20) {
+	  //
+	  //	   		  comm_error_count++;
+	  //	 		  status = MFRC522_Request(PICC_REQALL, TagType);
+	  //	 		  	  sprintf(str2,"Ver:%x", status);
+	  //	 		  	  lcd_write(str2, 0, 10);
+	  //	 		  	  HAL_Delay(1000);
+	  //	 		  	  if (status == 1) {
+	  //	 		  	      lcd_write("No card", 1, 0);
+	  //	 		  	  }
+	  //	 		  	  else if (status == 2) {
+	  //	 		  		  lcd_write("Comm error", 1, 0);
+	  //	 		  	  }
+	  //	 		  	  else if (status == MI_OK)
+	  //	 		  	  {
+	  //	 		  		  status = MFRC522_Anticoll(serNum);
+	  //	 		  		  if (status == MI_OK)
+	  //	 		  		  {
+	  //	 		  			  // Format UID
+	  //	 		  			  char uidStr[20];
+	  //	 		  			  snprintf(uidStr, sizeof(uidStr), "%02X%02X%02X%02X",
+	  //	 		  					   serNum[0], serNum[1], serNum[2], serNum[3]);
+	  //
+	  //	 		  			  // Display on LCD
+	  //	 		  			  lcd_clear();
+	  //	 		  			  lcd_write("Card UID:", 0, 0);
+	  //	 		  			  lcd_write(uidStr, 1, 0);
+	  //
+	  //	 		  			  HAL_Delay(2000); // Wait a bit before next read
+	  //	 		  			  lcd_clear();
+	  //	 		  			  lcd_write("Scan again...", 0, 0);
+	  //	 		  		  }
+	  //	 		  	  }
+	  //	 	  }
+	  //	 	  else if (ver != 0x92 && comm_error_count < 20) {
+	  //
+	  //	 	  }
+	  //	 	  else  if (comm_error_count >= 20){
+	  //	 		  lcd_clear();
+	  //	 		  lcd_write("Too many errors", 0, 0);
+	  //	 		  lcd_write("System reset...", 1, 0);
+	  //	 		  HAL_Delay(2000);
+	  //	 		  NVIC_SystemReset();  // Reset MCU
+	  //	 	  }
+	  //
+	  //	 	  HAL_Delay(1000);
+	  //	 	  lcd_clear();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -399,6 +440,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : LED_Pin */
   GPIO_InitStruct.Pin = LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -406,11 +453,33 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : BUTTON_Pin */
-  GPIO_InitStruct.Pin = BUTTON_Pin;
+  /*Configure GPIO pins : BUTTON_Pin PA3 PA4 PA5
+                           PA6 */
+  GPIO_InitStruct.Pin = BUTTON_Pin|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(BUTTON_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB0 PB1 PB10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
