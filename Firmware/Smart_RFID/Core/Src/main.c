@@ -24,7 +24,7 @@
 #include "i2clcd.h"
 #include "MFRC522.h"
 #include <stdio.h>
-
+#include "rtc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,11 +104,21 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
+  const char *DAYS_OF_WEEK[7] = { "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
+  DS1307_Init(&hi2c1);
   lcd_init();
+  lcd_clear();
+  DS1307_SetTimeZone(+8, 00);
+  DS1307_SetDate(29);
+  DS1307_SetMonth(2);
+  DS1307_SetYear(2024);
+  DS1307_SetDayOfWeek(4);
+  DS1307_SetHour(23);
+  DS1307_SetMinute(59);
+  DS1307_SetSecond(30);
 
-  lcd_write("Running RC522", 1, 0);  // line 0, column 0
-  lcd_write("Hello World!", 0, 0);  // line 0, column 0
-  HAL_Delay(1000);
+  lcd_write("Group 12"		  , 0, 0);  // line 0, column 0
+  lcd_write("RFID CARD READER", 1, 0);  // line 1, column 0
 
   HAL_GPIO_WritePin(RC522_Rst_GPIO_Port, RC522_Rst_Pin, GPIO_PIN_SET);
 
@@ -119,18 +129,6 @@ int main(void)
   MFRC522_Init();
   AntennaOn();
   HAL_Delay(1000);
-
-  u_char status, cardstr[MAX_LEN+1];
-  u_char TagType[2];
-  u_char serNum[5];  // 4 bytes UID + checksum
-  u_char card_data[17];
-  uint32_t delay_val = 1000; //ms
-  uint16_t result = 0;
-  u_char UID[5];
-  // a private key to scramble data writing/reading to/from RFID card:
-  u_char Mx1[7][5]={{0xF4,0x5A,0x91,0x72},{0xB2,0x6C,0x39,0x83},{0x55,0xE5,0xDA,0x18},
-  	     	  	  	{0x1F,0x09,0xCA,0x75},{0x99,0xA2,0x50,0xEC},{0x2C,0x88,0x7F,0x3D}};
-  u_char SectorKey[7];
 
   uint8_t version = Read_MFRC522(VersionReg);
   sprintf(str2,"ver:%x", version);
@@ -143,11 +141,11 @@ int main(void)
   }
   else
   {
-	lcd_write(str2, 0, 0);  // line 0, column 0
-    lcd_write("RC522 FAIL!", 1, 0);
-//    HAL_UART_Transmit(&huart2, (uint8_t *)"RC522 init failed\r\n", 20, HAL_MAX_DELAY);
-    HAL_Delay(2000);
-    HAL_NVIC_SystemReset();  // Reset lại vi điều khiển nếu RC522 không phản hồi đúng
+//	lcd_write(str2, 0, 0);  // line 0, column 0
+//    lcd_write("RC522 FAIL!", 1, 0);
+////    HAL_UART_Transmit(&huart2, (uint8_t *)"RC522 init failed\r\n", 20, HAL_MAX_DELAY);
+//    HAL_Delay(2000);
+//    HAL_NVIC_SystemReset();  // Reset lại vi điều khiển nếu RC522 không phản hồi đúng
   }
 
   HAL_Delay(1000);
@@ -159,61 +157,81 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  uint8_t ver = Read_MFRC522(VersionReg);
 
-	  // Tạo chuỗi chứa dòng thông báo
-	  char buffer[17];  // LCD 16 ký tự + null
-	  sprintf(buffer, "Ver: 0x%02X", ver); // VD: "Ver: 0x91"
+	  u_char TagType[2];
+	  u_char serNum[5];  // 4 bytes UID + checksum
 
-	  lcd_write(buffer, 0, 0);
-	  if (ver == 0x92 && comm_error_count < 20) {
+	  uint8_t date = DS1307_GetDate();
+	  uint8_t month = DS1307_GetMonth();
+	  uint16_t year = DS1307_GetYear();
+	  uint8_t dow = DS1307_GetDayOfWeek();
+	  uint8_t hour = DS1307_GetHour();
+	  uint8_t minute = DS1307_GetMinute();
+	  uint8_t second = DS1307_GetSecond();
+	  int8_t zone_hr = DS1307_GetTimeZoneHour();
+	  uint8_t zone_min = DS1307_GetTimeZoneMin();
+	  sprintf(str1, "Time: %u:%u:%u",hour, minute, second);
+	  sprintf(str2, "%s, %u/%u/%u", DAYS_OF_WEEK[dow], date, month, year);
+	  /* May show warning below. Ignore and proceed. */
+	  lcd_write(str1, 0, 0);
+	  lcd_write(str2, 1, 0);
+//	  HAL_Delay(250);
 
-  		  comm_error_count++;
-		  status = MFRC522_Request(PICC_REQALL, TagType);
-		  	  sprintf(str2,"Ver:%x", status);
-		  	  lcd_write(str2, 0, 10);
-		  	  HAL_Delay(1000);
-		  	  if (status == 1) {
-		  	      lcd_write("No card", 1, 0);
-		  	  }
-		  	  else if (status == 2) {
-		  		  lcd_write("Comm error", 1, 0);
-		  	  }
-		  	  else if (status == MI_OK)
-		  	  {
-		  		  status = MFRC522_Anticoll(serNum);
-		  		  if (status == MI_OK)
-		  		  {
-		  			  // Format UID
-		  			  char uidStr[20];
-		  			  snprintf(uidStr, sizeof(uidStr), "%02X%02X%02X%02X",
-		  					   serNum[0], serNum[1], serNum[2], serNum[3]);
-
-		  			  // Display on LCD
-		  			  lcd_clear();
-		  			  lcd_write("Card UID:", 0, 0);
-		  			  lcd_write(uidStr, 1, 0);
-
-		  			  HAL_Delay(2000); // Wait a bit before next read
-		  			  lcd_clear();
-		  			  lcd_write("Scan again...", 0, 0);
-		  		  }
-		  	  }
-	  }
-	  else if (ver != 0x92 && comm_error_count < 20) {
-
-	  }
-	  else  if (comm_error_count >= 20){
-		  lcd_clear();
-		  lcd_write("Too many errors", 0, 0);
-		  lcd_write("System reset...", 1, 0);
-		  HAL_Delay(2000);
-		  NVIC_SystemReset();  // Reset MCU
-	  }
-
-	  HAL_Delay(1000);
-	  lcd_clear();
-
+//	  u_char status;
+//	  uint8_t ver = Read_MFRC522(VersionReg);
+//
+//	 	  // Tạo chuỗi chứa dòng thông báo
+//	 	  char buffer[17];  // LCD 16 ký tự + null
+//	 	  sprintf(buffer, "Ver: 0x%02X", ver); // VD: "Ver: 0x91"
+//
+//	 	  lcd_write(buffer, 0, 0);
+//	 	  if (ver == 0x92 && comm_error_count < 20) {
+//
+//	   		  comm_error_count++;
+//	 		  status = MFRC522_Request(PICC_REQALL, TagType);
+//	 		  	  sprintf(str2,"Ver:%x", status);
+//	 		  	  lcd_write(str2, 0, 10);
+//	 		  	  HAL_Delay(1000);
+//	 		  	  if (status == 1) {
+//	 		  	      lcd_write("No card", 1, 0);
+//	 		  	  }
+//	 		  	  else if (status == 2) {
+//	 		  		  lcd_write("Comm error", 1, 0);
+//	 		  	  }
+//	 		  	  else if (status == MI_OK)
+//	 		  	  {
+//	 		  		  status = MFRC522_Anticoll(serNum);
+//	 		  		  if (status == MI_OK)
+//	 		  		  {
+//	 		  			  // Format UID
+//	 		  			  char uidStr[20];
+//	 		  			  snprintf(uidStr, sizeof(uidStr), "%02X%02X%02X%02X",
+//	 		  					   serNum[0], serNum[1], serNum[2], serNum[3]);
+//
+//	 		  			  // Display on LCD
+//	 		  			  lcd_clear();
+//	 		  			  lcd_write("Card UID:", 0, 0);
+//	 		  			  lcd_write(uidStr, 1, 0);
+//
+//	 		  			  HAL_Delay(2000); // Wait a bit before next read
+//	 		  			  lcd_clear();
+//	 		  			  lcd_write("Scan again...", 0, 0);
+//	 		  		  }
+//	 		  	  }
+//	 	  }
+//	 	  else if (ver != 0x92 && comm_error_count < 20) {
+//
+//	 	  }
+//	 	  else  if (comm_error_count >= 20){
+//	 		  lcd_clear();
+//	 		  lcd_write("Too many errors", 0, 0);
+//	 		  lcd_write("System reset...", 1, 0);
+//	 		  HAL_Delay(2000);
+//	 		  NVIC_SystemReset();  // Reset MCU
+//	 	  }
+//
+//	 	  HAL_Delay(1000);
+//	 	  lcd_clear();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -312,7 +330,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;

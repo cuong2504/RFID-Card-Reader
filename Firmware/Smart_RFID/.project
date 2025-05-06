@@ -31,6 +31,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>comm</name>
+			<type>2</type>
+			<location>C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm</location>
+		</link>
+		<link>
 			<name>lcd_i2c_stm32-master</name>
 			<type>2</type>
 			<location>C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master</location>

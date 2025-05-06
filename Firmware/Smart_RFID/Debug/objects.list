@@ -19,5 +19,6 @@
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o"
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o"
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o"
-"./lcd_i2c_stm32-master/MFRC522.o"
-"./lcd_i2c_stm32-master/i2clcd.o"
+"./comm/MFRC522.o"
+"./comm/i2clcd.o"
+"./comm/rtc.o"

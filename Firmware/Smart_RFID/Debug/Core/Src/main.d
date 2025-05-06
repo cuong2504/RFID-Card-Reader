@@ -24,8 +24,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.h \
- C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/MFRC522.h
+ C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.h \
+ C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/MFRC522.h \
+ C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/rtc.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -52,5 +53,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.h:
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/MFRC522.h:
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/i2clcd.h:
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/MFRC522.h:
+C:/Users/Admin/Desktop/HK242/Embedded/RFID-Card-Reader/Firmware/comm/rtc.h:

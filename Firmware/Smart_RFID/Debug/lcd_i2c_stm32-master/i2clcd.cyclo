@@ -1,7 +1,0 @@
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:23:6:lcd_send_cmd	1
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:36:6:lcd_send_data	1
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:49:6:lcd_clear	2
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:58:6:lcd_init	1
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:83:6:lcd_send_string	8
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:128:6:lcd_write	1
-C:/Users/Admin/Downloads/lcd_i2c_stm32-master/lcd_i2c_stm32-master/i2clcd.c:135:6:lcd_clear_line	2
